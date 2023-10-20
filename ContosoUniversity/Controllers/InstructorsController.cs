@@ -243,9 +243,17 @@ namespace ContosoUniversity.Controllers
             {
                 return Problem("Entity set 'SchoolContext.Instructors'  is null.");
             }
-            var instructor = await _context.Instructors.FindAsync(id);
+            var instructor = await _context.Instructors
+                .Include(i => i.CourseAssignments)
+                .SingleAsync(i => i.ID == id);
+
+            var departments = await _context.Departments
+                .Where(d => d.InstructorID == id)
+                .ToListAsync();
+
             if (instructor != null)
             {
+                departments.ForEach(d => d.InstructorID = null);
                 _context.Instructors.Remove(instructor);
             }
             
