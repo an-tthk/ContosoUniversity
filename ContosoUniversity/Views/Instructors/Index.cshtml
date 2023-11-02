@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Instructors";
-    string space_ = " ";
 }
 
 <h1>Instructors</h1>
@@ -48,7 +47,7 @@
                 <td>
                     @foreach (var course in item.CourseAssignments)
                     {
-                        @course.Course.CourseID @space_ @course.Course.Title<br />
+                        @course.Course.CourseID @:  @course.Course.Title<br />
                     }
                 </td>
                 <td>
